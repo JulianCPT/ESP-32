@@ -1,12 +1,18 @@
 <div align="center">
 
-# ⚡ Documentación Técnica: ESP-WROOM-32
+<!-- Título principal con efecto dinámico en SVG -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=220&section=header&text=ESP-WROOM-32&fontSize=70&fontAlignY=38&animation=twinkling&desc=Documentación%20Técnica%20y%20Arquitectura%20IoT&descSize=20&descAlignY=62&descAlign=50" width="100%" alt="Header ESP32"/>
+
+<br>
 
 <img src="https://altronics.cl/image/catalog/productos/electronica/tarjetas/esp32-nodemcu-esp32-s/esp32-nodemcu-esp32-s-5.jpg" alt="Descripción de la imagen">
 
 **El corazón del desarrollo IoT: Arquitectura de hardware, periferia, gestión energética y entornos de desarrollo**
 
+<br>
+
 ---
+
 <br>
 
 👤 Autor
