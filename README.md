@@ -77,6 +77,7 @@ El procesador central se basa en el chip **ESP32-D0WDQ6** (o variantes de la ser
   *  **Frecuencia de reloj:** Ajustable dinámicamente desde **80 MHz hasta 240 MHz**[cite: 1].
   *  **Rendimiento informático:** Hasta **600 DMIPS** (Dhrystone MIPS)[cite: 1].
   *  **Arquitectura Harvard:** Buses de datos e instrucciones independientes para acelerar la ejecución del código[cite: 2, 5].
+
 * 🔋 **Coprocesador ULP:** Un microcontrolador complementario ultra eficiente basado en arquitectura RISC que permanece activo mientras la CPU principal se apaga[cite: 1, 2].
 
 | Subsistema | Componentes y Capacidades |
@@ -93,9 +94,13 @@ El procesador central se basa en el chip **ESP32-D0WDQ6** (o variantes de la ser
 El espacio de direccionamiento de memoria del ESP32 está segmentado para optimizar la velocidad de lectura y el almacenamiento no volátil[cite: 1, 2]:
 
 1. 🏛️ **440 KB de ROM Interna:** Contiene el código de arranque (*Bootloader*), rutinas de inicialización del chip e interfaces de bajo nivel para periféricos[cite: 1, 2].
+
 2. ⚡ **520 KB de SRAM Interna:** Dividida en bloques de memoria para datos e instrucciones, utilizada activamente por el sistema operativo de tiempo real (FreeRTOS)[cite: 1, 2, 3].
+
 3. ⏱️ **8 KB de SRAM en RTC (Fast RTC Memory):** Accesible por la CPU principal cuando arranca desde un modo de reposo[cite: 1, 2].
+
 4. 🌙 **8 KB de SRAM en RTC (Slow RTC Memory):** Accesible exclusivamente por el coprocesador ULP durante el modo *Deep Sleep*[cite: 1, 2].
+
 5. 💾 **4 MB de Flash SPI Externa:** Memoria no volátil donde se almacena el binario del programa, el sistema de archivos (SPIFFS/LittleFS) y configuraciones NVS[cite: 1, 2].
 
 <br>
@@ -138,9 +143,13 @@ El módulo WROOM-32 expone un total de 38 pines físicos (36 pines GPIO disponib
 ---
 
 ### 2.2 Interfaces de Comunicación Serie
+
 * 🧷 **UART (Universal Asynchronous Receiver-Transmitter):** Protocolo de comunicación asíncrono punto a punto que utiliza dos líneas principales (TX para transmitir y RX para recibir). El ESP32 integra 3 controladores UART (`UART0`, `UART1`, `UART2`) con soporte para RS485 e IrDA, utilizados para la depuración por consola y conexión de módulos GPS o GSM[cite: 1, 2].
+
 * ⚡ **SPI (Serial Peripheral Interface):** Bus de comunicación síncrono de 4 hilos (MOSI, MISO, CLK, CS) orientado a la alta velocidad de transferencia de datos. El ESP32 incluye 3 buses SPI (`SPI`, `HSPI`, `VSPI`) capaces de operar hasta a 80 MHz, ideales para pantallas TFT o tarjetas microSD[cite: 1, 2].
+
 * 📟 **I2C (Inter-Integrated Circuit):** Protocolo serie síncrono de 2 hilos (SDA para datos y SCL para reloj) diseñado para interconectar múltiples sensores o pantallas usando una sola línea mediante un direccionamiento por software. Soporta velocidades de 100 kbit/s (Standar-mode) y 400 kbit/s (Fast-mode)[cite: 1, 2].
+
 * 🎵 **I2S (Inter-IC Sound):** Interfaz estándar de bus serie enfocada en la transmisión de datos de audio digital continuo entre dispositivos como DACs externos, micrófonos MEMS y procesadores de sonido. El ESP32 dispone de 2 controladores I2S con soporte para acceso directo a memoria (DMA)[cite: 1, 2].
 
 <br>
@@ -153,9 +162,12 @@ Un **ADC** (*Analog-to-Digital Converter*) es un circuito integrado que muestrea
 El ESP32 incluye dos módulos ADC de aproximación sucesiva (SAR ADC) con una resolución programable de **9 a 12 bits** (rango entero de 0 a 4095)[cite: 1, 2].
 
 * 🔄 **Flujo de Lectura:** Entrada Analógica (0-3.3V) ➔ Etapa de Atenuación (0dB, 2.5dB, 6dB, 11dB) ➔ ADC de 12 bits ➔ Valor Digitalizado (0-4095)[cite: 1, 2].
+
 * 🟢 **ADC1 (8 Canales):** Accesible a través de `GPIO 32`, `GPIO 33`, `GPIO 34`, `GPIO 35`, `GPIO 36`, `GPIO 37`, `GPIO 38` y `GPIO 39`[cite: 1, 2]. **Está totalmente disponible sin importar el estado del Wi-Fi.**[cite: 1, 2]
+
 * 🔴 **ADC2 (10 Canales):** Asignado a `GPIO 0`, `GPIO 2`, `GPIO 4`, `GPIO 12`, `GPIO 13`, `GPIO 14`, `GPIO 15`, `GPIO 25`, `GPIO 26` y `GPIO 27`[cite: 1, 2].
-  > 📌 **Restricción Crítica:** El convertidor **ADC2 está internamente enlazado a la pila de controladores de red Wi-Fi**[cite: 1, 2]. Por lo tanto, no se pueden tomar lecturas de ADC2 cuando la radio Wi-Fi está encendida y transmitiendo[cite: 1, 2].
+
+   > 📌 **Restricción Crítica:** El convertidor **ADC2 está internamente enlazado a la pila de controladores de red Wi-Fi**[cite: 1, 2]. Por lo tanto, no se pueden tomar lecturas de ADC2 cuando la radio Wi-Fi está encendida y transmitiendo[cite: 1, 2].
 
 <br>
 
@@ -167,10 +179,13 @@ Un **DAC** (*Digital-to-Analog Converter*) realiza el proceso opuesto al ADC: tr
 A diferencia de la mayoría de microcontroladores que emulan señales analógicas aproximadas usando pulsos digitales (PWM), el ESP32 cuenta con **2 canales DAC reales de 8 bits** impulsados por una arquitectura interna de red de resistencias (R-2R)[cite: 1, 2].
 
 * 🎚️ **Resolución:** 8 bits (Permite generar valores discretos entre `0` y `255`)[cite: 1, 2].
+
 * 📍 **Canales y Pines Fijos:**
   * **DAC1:** Mapeado exclusivamente al pin `GPIO 25`[cite: 1, 2].
   * **DAC2:** Mapeado exclusivamente al pin `GPIO 26`[cite: 1, 2].
+
 * 📈 **Rango de Salida:** Genera un voltaje que varía linealmente de `0.0V` hasta `VCC` (aproximadamente `3.3V`)[cite: 1, 2].
+
 * 💡 **Casos de Uso:** Generación directa de formas de onda complejas (senoidales, triangulares), síntesis de audio analógico de baja fidelidad y control preciso de voltaje de referencia.
 
 <br>
@@ -183,8 +198,11 @@ A diferencia de la mayoría de microcontroladores que emulan señales analógica
 El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliza el hardware especializado **LEDC (LED Control)** diseñado para generar ondas cuadradas de alta precisión sin interrumpir el procesamiento del núcleo[cite: 1, 2]:
 
 * 🎛️ **16 Canales Independientes:** Divididos en 2 grupos (High Speed y Low Speed) de 8 canales cada uno[cite: 1, 2].
+
 * 🔀 **Asignación Flexible:** Cualquier canal LEDC se puede enlazar dinámicamente a **cualquier pin GPIO de salida digital**[cite: 1, 2].
+
 * 📊 **Resolución Ajustable:** Configurable desde 1 bit hasta 16 bits de resolución para el ciclo de trabajo (*Duty Cycle*)[cite: 1, 2].
+
 * 🌊 **Frecuencia:** Operación escalable desde frecuencias muy bajas hasta decenas de MegaHz, ideal para el atenuado suave de LEDs (dimming) y el control de servomotores o variadores de velocidad[cite: 1, 2].
 
 ---
@@ -215,11 +233,14 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 
 #### 🟢 Ventajas
 1.  **Rendimiento Crítico:** Adecuado para el procesamiento digital de señales (DSP), algoritmos de criptografía y lectura de sensores de ultra alta frecuencia[cite: 1, 3].
+
 2.  **Control Multinúcleo Nativo:** Capacidad de asignar mediante **FreeRTOS** tareas específicas directamente a la `PRO_CPU` (Core 0) o a la `APP_CPU` (Core 1)[cite: 3].
+
 3.  **Eficiencia Energética:** Permite apagar manualmente buses enteros y reducir los tiempos de despertar al mínimo posible para prolongar la vida útil de baterías[cite: 1, 3].
 
 #### 🔴 Desventajas
 1.  **Mayor Tiempo de Desarrollo:** Mayor complejidad en el manejo de memoria dinámica, punteros y desbordamientos de búfer[cite: 3].
+
 2.  **Depuración Lenta:** Proceso prolongado de escribir código, compilar, flashear la memoria mediante UART y probar[cite: 3].
 
 <br>
@@ -232,11 +253,14 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 
 #### 🟢 Ventajas
 1.  **Curva de Aprendizaje Mínima:** Desarrollar en sintaxis Python 3 reduce drásticamente el tiempo necesario para completar proyectos[cite: 4].
+
 2.  **Entorno REPL (Read-Eval-Print Loop):** Permite conectarse por consola de comandos y probar líneas de código, comandos I2C o cambiar el estado de un pin en tiempo real sin reiniciar el microcontrolador[cite: 4].
+
 3.  **Manejo Nativo de Datos:** Facilidad para estructurar objetos complejos, parsing de arrays JSON o peticiones HTTP/Sockets en pocas líneas[cite: 4].
 
 #### 🔴 Desventajas
 1.  **Sobrecostos de Latencia:** La recolección de basura (*Garbage Collection*) de Python puede pausar la ejecución del sistema durante milisegundos imprevistos[cite: 4].
+
 2.  **Imposibilidad de Tiempo Real Estricto:** Inadecuado si la aplicación requiere responder a interrupciones en rangos de microsegundos ($\mu s$)[cite: 4].
 
 ---
