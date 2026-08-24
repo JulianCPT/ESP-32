@@ -68,6 +68,8 @@ Una de las principales ventajas del ESP32 es que puede recibir información de s
 
 > 💡 **Nota de Innovación:** El módulo está diseñado con un cristal oscilador de 40 MHz integrado, memoria flash SPI dedicada y una antena en trazado de PCB, cumpliendo con certifaciones internacionales como FCC, CE, IC, TELEC, KCC y SRRC[cite: 1].
 
+<br>
+
 ### 1.2 Arquitectura Interna de Procesamiento
 El procesador central se basa en el chip **ESP32-D0WDQ6** (o variantes de la serie ESP32-D0WD)[cite: 1].
 
@@ -83,6 +85,8 @@ El procesador central se basa en el chip **ESP32-D0WDQ6** (o variantes de la ser
 | 🔒 **Aceleradores Criptográficos** | Hardware dedicado para AES (128/192/256-bit), SHA-2, RSA, ECC y Generador de Números Aleatorios (TRNG)[cite: 1, 2]. |
 | 📡 **Radio de Comunicaciones** | Wi-Fi 802.11 b/g/n (hasta 150 Mbps) + Bluetooth v4.2 BR/EDR y BLE (Bluetooth Low Energy)[cite: 1]. |
 
+<br>
+
 ---
 
 ### 1.3 Estructura de Memoria y Almacenamiento
@@ -93,6 +97,8 @@ El espacio de direccionamiento de memoria del ESP32 está segmentado para optimi
 3. ⏱️ **8 KB de SRAM en RTC (Fast RTC Memory):** Accesible por la CPU principal cuando arranca desde un modo de reposo[cite: 1, 2].
 4. 🌙 **8 KB de SRAM en RTC (Slow RTC Memory):** Accesible exclusivamente por el coprocesador ULP durante el modo *Deep Sleep*[cite: 1, 2].
 5. 💾 **4 MB de Flash SPI Externa:** Memoria no volátil donde se almacena el binario del programa, el sistema de archivos (SPIFFS/LittleFS) y configuraciones NVS[cite: 1, 2].
+
+<br>
 
 ---
 
@@ -127,6 +133,8 @@ El módulo WROOM-32 expone un total de 38 pines físicos (36 pines GPIO disponib
 | ⚙️ **Strapping Pins** | `GPIO 0`, `GPIO 2`, `GPIO 5`, `GPIO 12 (MTDI)`, `GPIO 15 (MTDO)`[cite: 1, 2] | Controlan el modo de arranque (*Bootloader*) y voltajes de la flash[cite: 1, 2]. Si se conectan cargas flotantes en el arranque, la placa puede no iniciar[cite: 1, 2]. |
 | 👆 **Táctiles (Capacitive Touch)**| `T0 (GPIO 4)`, `T1 (GPIO 0)`, `T2 (GPIO 2)`, `T3 (GPIO 15)`, `T4 (GPIO 13)`, `T5 (GPIO 12)`, `T6 (GPIO 14)`, `T7 (GPIO 27)`, `T8 (GPIO 33)`, `T9 (GPIO 32)`[cite: 1, 2] | 10 sensores táctiles capacitivos integrados capaces de detectar variaciones por contacto humano[cite: 1, 2]. |
 
+<br>
+
 ---
 
 ### 2.2 Interfaces de Comunicación Serie
@@ -134,6 +142,8 @@ El módulo WROOM-32 expone un total de 38 pines físicos (36 pines GPIO disponib
 * ⚡ **SPI (Serial Peripheral Interface):** Bus de comunicación síncrono de 4 hilos (MOSI, MISO, CLK, CS) orientado a la alta velocidad de transferencia de datos. El ESP32 incluye 3 buses SPI (`SPI`, `HSPI`, `VSPI`) capaces de operar hasta a 80 MHz, ideales para pantallas TFT o tarjetas microSD[cite: 1, 2].
 * 📟 **I2C (Inter-Integrated Circuit):** Protocolo serie síncrono de 2 hilos (SDA para datos y SCL para reloj) diseñado para interconectar múltiples sensores o pantallas usando una sola línea mediante un direccionamiento por software. Soporta velocidades de 100 kbit/s (Standar-mode) y 400 kbit/s (Fast-mode)[cite: 1, 2].
 * 🎵 **I2S (Inter-IC Sound):** Interfaz estándar de bus serie enfocada en la transmisión de datos de audio digital continuo entre dispositivos como DACs externos, micrófonos MEMS y procesadores de sonido. El ESP32 dispone de 2 controladores I2S con soporte para acceso directo a memoria (DMA)[cite: 1, 2].
+
+<br>
 
 ---
 
@@ -146,6 +156,8 @@ El ESP32 incluye dos módulos ADC de aproximación sucesiva (SAR ADC) con una re
 * 🟢 **ADC1 (8 Canales):** Accesible a través de `GPIO 32`, `GPIO 33`, `GPIO 34`, `GPIO 35`, `GPIO 36`, `GPIO 37`, `GPIO 38` y `GPIO 39`[cite: 1, 2]. **Está totalmente disponible sin importar el estado del Wi-Fi.**[cite: 1, 2]
 * 🔴 **ADC2 (10 Canales):** Asignado a `GPIO 0`, `GPIO 2`, `GPIO 4`, `GPIO 12`, `GPIO 13`, `GPIO 14`, `GPIO 15`, `GPIO 25`, `GPIO 26` y `GPIO 27`[cite: 1, 2].
   > 📌 **Restricción Crítica:** El convertidor **ADC2 está internamente enlazado a la pila de controladores de red Wi-Fi**[cite: 1, 2]. Por lo tanto, no se pueden tomar lecturas de ADC2 cuando la radio Wi-Fi está encendida y transmitiendo[cite: 1, 2].
+
+<br>
 
 ---
 
@@ -160,6 +172,8 @@ A diferencia de la mayoría de microcontroladores que emulan señales analógica
   * **DAC2:** Mapeado exclusivamente al pin `GPIO 26`[cite: 1, 2].
 * 📈 **Rango de Salida:** Genera un voltaje que varía linealmente de `0.0V` hasta `VCC` (aproximadamente `3.3V`)[cite: 1, 2].
 * 💡 **Casos de Uso:** Generación directa de formas de onda complejas (senoidales, triangulares), síntesis de audio analógico de baja fidelidad y control preciso de voltaje de referencia.
+
+<br>
 
 ---
 
@@ -191,6 +205,8 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 | **Sistema Operativo Subyacente**| **FreeRTOS integrado de forma transparente**[cite: 3] | Monohilo con arquitectura asíncrona (`uasyncio`)[cite: 4] |
 | **Entorno Interactivo (REPL)**| No soportado[cite: 3] | **Soportado (Consola interactiva por USB/UART)**[cite: 4] |
 
+<br>
+
 ---
 
 ### 3.2 Análisis Profundo: C / C++ (ESP-IDF / Arduino Core)
@@ -205,6 +221,8 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 #### 🔴 Desventajas
 1.  **Mayor Tiempo de Desarrollo:** Mayor complejidad en el manejo de memoria dinámica, punteros y desbordamientos de búfer[cite: 3].
 2.  **Depuración Lenta:** Proceso prolongado de escribir código, compilar, flashear la memoria mediante UART y probar[cite: 3].
+
+<br>
 
 ---
 
