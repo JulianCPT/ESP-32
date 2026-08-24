@@ -60,7 +60,11 @@
 ## 🧠 1. Definición y Arquitectura de la ESP32
 
 ### 1.1 Visión General del Módulo ESP-WROOM-32
-El **ESP-WROOM-32** (actualmente denominado por el fabricante como módulo *ESP32-WROOM-32*) es una solución completa en formato **SoC (System on Chip)** desarrollada por **Espressif Systems**[cite: 1, 2]. Integra un microcontrolador de alto rendimiento, conectividad inalámbrica y un conjunto de periféricos en una placa de dimensiones reducidas[cite: 1, 2].
+Es un microcontrolador utilizado principalmente en sistemas embebidos, robótica, automatización, electrónica e Internet de las cosas, conocido como IoT.
+
+Un microcontrolador es un circuito integrado que contiene los elementos necesarios para ejecutar un programa y controlar diferentes dispositivos electrónicos. El ESP32 se caracteriza por tener una gran cantidad de periféricos integrados, además de comunicación inalámbrica mediante Wi-Fi y Bluetooth.
+
+Una de las principales ventajas del ESP32 es que puede recibir información de sensores, procesarla y posteriormente controlar otros dispositivos como motores, LEDs, relés o pantallas.
 
 > 💡 **Nota de Innovación:** El módulo está diseñado con un cristal oscilador de 40 MHz integrado, memoria flash SPI dedicada y una antena en trazado de PCB, cumpliendo con certifaciones internacionales como FCC, CE, IC, TELEC, KCC y SRRC[cite: 1].
 
@@ -68,9 +72,9 @@ El **ESP-WROOM-32** (actualmente denominado por el fabricante como módulo *ESP3
 El procesador central se basa en el chip **ESP32-D0WDQ6** (o variantes de la serie ESP32-D0WD)[cite: 1].
 
 * 🏎️ **Unidad Central de Procesamiento (CPU):** Dual-Core Tensilica Xtensa® 32-bit LX6[cite: 1, 5].
-  * ⏱️ **Frecuencia de reloj:** Ajustable dinámicamente desde **80 MHz hasta 240 MHz**[cite: 1].
-  * 🚀 **Rendimiento informático:** Hasta **600 DMIPS** (Dhrystone MIPS)[cite: 1].
-  * 📐 **Arquitectura Harvard:** Buses de datos e instrucciones independientes para acelerar la ejecución del código[cite: 2, 5].
+  *  **Frecuencia de reloj:** Ajustable dinámicamente desde **80 MHz hasta 240 MHz**[cite: 1].
+  *  **Rendimiento informático:** Hasta **600 DMIPS** (Dhrystone MIPS)[cite: 1].
+  *  **Arquitectura Harvard:** Buses de datos e instrucciones independientes para acelerar la ejecución del código[cite: 2, 5].
 * 🔋 **Coprocesador ULP:** Un microcontrolador complementario ultra eficiente basado en arquitectura RISC que permanece activo mientras la CPU principal se apaga[cite: 1, 2].
 
 | Subsistema | Componentes y Capacidades |
@@ -194,13 +198,13 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 * 🔄 **Flujo de Trabajo:** Código C/C++ ➔ Compilador GCC Xtensa ➔ Binario Ejecutable `.bin` ➔ Ejecución Nativa en CPU[cite: 3].
 
 #### 🟢 Ventajas
-1. 🚀 **Rendimiento Crítico:** Adecuado para el procesamiento digital de señales (DSP), algoritmos de criptografía y lectura de sensores de ultra alta frecuencia[cite: 1, 3].
-2. 🔀 **Control Multinúcleo Nativo:** Capacidad de asignar mediante **FreeRTOS** tareas específicas directamente a la `PRO_CPU` (Core 0) o a la `APP_CPU` (Core 1)[cite: 3].
-3. 🔋 **Eficiencia Energética:** Permite apagar manualmente buses enteros y reducir los tiempos de despertar al mínimo posible para prolongar la vida útil de baterías[cite: 1, 3].
+1.  **Rendimiento Crítico:** Adecuado para el procesamiento digital de señales (DSP), algoritmos de criptografía y lectura de sensores de ultra alta frecuencia[cite: 1, 3].
+2.  **Control Multinúcleo Nativo:** Capacidad de asignar mediante **FreeRTOS** tareas específicas directamente a la `PRO_CPU` (Core 0) o a la `APP_CPU` (Core 1)[cite: 3].
+3.  **Eficiencia Energética:** Permite apagar manualmente buses enteros y reducir los tiempos de despertar al mínimo posible para prolongar la vida útil de baterías[cite: 1, 3].
 
 #### 🔴 Desventajas
-1. ⏳ **Mayor Tiempo de Desarrollo:** Mayor complejidad en el manejo de memoria dinámica, punteros y desbordamientos de búfer[cite: 3].
-2. 🛠️ **Depuración Lenta:** Proceso prolongado de escribir código, compilar, flashear la memoria mediante UART y probar[cite: 3].
+1.  **Mayor Tiempo de Desarrollo:** Mayor complejidad en el manejo de memoria dinámica, punteros y desbordamientos de búfer[cite: 3].
+2.  **Depuración Lenta:** Proceso prolongado de escribir código, compilar, flashear la memoria mediante UART y probar[cite: 3].
 
 ---
 
@@ -209,13 +213,13 @@ El ESP32 no posee un temporizador PWM genérico tradicional; en su lugar, utiliz
 * 🔄 **Flujo de Trabajo:** Script Python (`.py`) ➔ Firmware MicroPython (VM) ➔ Traducción en Tiempo Real ➔ CPU ESP32[cite: 4].
 
 #### 🟢 Ventajas
-1. 🎓 **Curva de Aprendizaje Mínima:** Desarrollar en sintaxis Python 3 reduce drásticamente el tiempo necesario para completar proyectos[cite: 4].
-2. 💻 **Entorno REPL (Read-Eval-Print Loop):** Permite conectarse por consola de comandos y probar líneas de código, comandos I2C o cambiar el estado de un pin en tiempo real sin reiniciar el microcontrolador[cite: 4].
-3. 📦 **Manejo Nativo de Datos:** Facilidad para estructurar objetos complejos, parsing de arrays JSON o peticiones HTTP/Sockets en pocas líneas[cite: 4].
+1.  **Curva de Aprendizaje Mínima:** Desarrollar en sintaxis Python 3 reduce drásticamente el tiempo necesario para completar proyectos[cite: 4].
+2.  **Entorno REPL (Read-Eval-Print Loop):** Permite conectarse por consola de comandos y probar líneas de código, comandos I2C o cambiar el estado de un pin en tiempo real sin reiniciar el microcontrolador[cite: 4].
+3.  **Manejo Nativo de Datos:** Facilidad para estructurar objetos complejos, parsing de arrays JSON o peticiones HTTP/Sockets en pocas líneas[cite: 4].
 
 #### 🔴 Desventajas
-1. 🛑 **Sobrecostos de Latencia:** La recolección de basura (*Garbage Collection*) de Python puede pausar la ejecución del sistema durante milisegundos imprevistos[cite: 4].
-2. ⏱️ **Imposibilidad de Tiempo Real Estricto:** Inadecuado si la aplicación requiere responder a interrupciones en rangos de microsegundos ($\mu s$)[cite: 4].
+1.  **Sobrecostos de Latencia:** La recolección de basura (*Garbage Collection*) de Python puede pausar la ejecución del sistema durante milisegundos imprevistos[cite: 4].
+2.  **Imposibilidad de Tiempo Real Estricto:** Inadecuado si la aplicación requiere responder a interrupciones en rangos de microsegundos ($\mu s$)[cite: 4].
 
 ---
 
