@@ -4,7 +4,7 @@
 
 <br>
 
-<img src="https://altronics.cl/image/catalog/productos/electronica/tarjetas/esp32-nodemcu-esp32-s/esp32-nodemcu-esp32-s-5.jpg" alt="Módulo ESP-WROOM-32" width="450">
+<img src="https://altronics.cl/image/catalog/productos/electronica/tarjetas/esp32-nodemcu-esp32-s/esp32-nodemcu-esp32-s-5.jpg" alt="Módulo ESP-WROOM-32" width="750">
 
 **El corazón del desarrollo IoT: Arquitectura de hardware, periferia, gestión energética y entornos de desarrollo**
 
